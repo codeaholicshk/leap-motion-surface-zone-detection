@@ -62,21 +62,23 @@ function waitingForResult(callback) {
     if (accumulatedDuration >= 100) {
       callback(currentToolTipPosition);
     } else {
+      var progressElement = document.getElementById("message-progress");
       if (currentToolIsAroundTheSameSpot()) {
         accumulatedDuration += 1;
+
         var progress = accumulatedDuration + '%';
-        document.getElementById("message-progress").innerHTML = '<div class="progress-bar progress-bar-info" role="progressbar" style="width: ' + progress + '">' +
+        progressElement.innerHTML = '<div class="progress-bar progress-bar-info" role="progressbar" style="width: ' + progress + '">' +
           progress +
         '</div>';
       } else {
         accumulatedDuration = 0;
-        lastCalibratingPoint = currentToolTipPosition;
 
-        document.getElementById("message-progress").innerHTML = '<div class="progress-bar progress-bar-danger" role="progressbar" style="width: 100%">' +
+        progressElement.innerHTML = '<div class="progress-bar progress-bar-danger" role="progressbar" style="width: 100%">' +
         '  Move your stick to the detection zone' +
         '</div>';
       }
       if (calibrateMode) {
+        lastCalibratingPoint = currentToolTipPosition;
         waitingForResult(callback);
       }
     }
@@ -84,13 +86,11 @@ function waitingForResult(callback) {
 }
 
 function currentToolIsAroundTheSameSpot() {
-  if (lastCalibratingPoint != null && currentToolTipPosition != null) {
-    return aroundSameSpot(lastCalibratingPoint[0], currentToolTipPosition[0])
+    return lastCalibratingPoint != null
+      && currentToolTipPosition != null
+      && aroundSameSpot(lastCalibratingPoint[0], currentToolTipPosition[0])
       && aroundSameSpot(lastCalibratingPoint[1], currentToolTipPosition[1])
       && aroundSameSpot(lastCalibratingPoint[2], currentToolTipPosition[2]);
-  } else {
-    return false;
-  }
 }
 
 function aroundSameSpot(firstValue, secondValue) {

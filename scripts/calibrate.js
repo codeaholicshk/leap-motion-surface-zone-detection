@@ -25,8 +25,9 @@ function beforeCalibrate() {
     document.getElementById("message").innerHTML = "On your table surface, point your tool to top left hand corner.";
 
     var btn = document.getElementById("btn-calibrate");
-    addClass(btn, "btn-primary");
-    removeClass(btn, "btn-default");
+    addClass(btn, "btn-danger");
+    removeClass(btn, "btn-primary");
+    btn.innerHTML = "Calibrating ...";
 
     calibrateMode = true;
     lastCalibratingPoint = currentToolTipPosition;
@@ -38,34 +39,48 @@ function beforeCalibrate() {
 function afterCalibrate() {
   if (calibrateMode) {
     var btn = document.getElementById("btn-calibrate");
-    addClass(btn, "btn-default");
-    removeClass(btn, "btn-primary");
+    addClass(btn, "btn-primary");
+    removeClass(btn, "btn-danger");
+    btn.innerHTML = "Start Calibrate";
 
     calibrateMode = false;
     lastCalibratingPoint = null;
     currentCalibratingPoint = null;
     highlightCalibratingPoint(null);
 
-    console.table(surface);
+    document.getElementById("surface-size").innerHTML = "<table class='table'>" +
+      "<tr><td>" + surface.topLeft[0] + "</td><td>" + surface.topLeft[1] + "</td></tr>" +
+      "<tr><td>" + surface.topRight[0] + "</td><td>" + surface.topRight[1] + "</td></tr>" +
+      "<tr><td>" + surface.bottomRight[0] + "</td><td>" + surface.bottomRight[1] + "</td></tr>" +
+      "<tr><td>" + surface.bottomLeft[0] + "</td><td>" + surface.bottomLeft[1] + "</td></tr>" +
+      "</table>";
   }
 }
 
 function waitingForResult(callback) {
   setTimeout(function() {
-    if (accumulatedDuration >= 1500) {
+    if (accumulatedDuration >= 100) {
       callback(currentToolTipPosition);
     } else {
       if (currentToolIsAroundTheSameSpot()) {
-        accumulatedDuration += 100;
+        accumulatedDuration += 1;
+        var progress = accumulatedDuration + '%';
+        document.getElementById("message-progress").innerHTML = '<div class="progress-bar progress-bar-info" role="progressbar" style="width: ' + progress + '">' +
+          progress +
+        '</div>';
       } else {
         accumulatedDuration = 0;
         lastCalibratingPoint = currentToolTipPosition;
+
+        document.getElementById("message-progress").innerHTML = '<div class="progress-bar progress-bar-danger" role="progressbar" style="width: 100%">' +
+        '  Move your stick to the detection zone' +
+        '</div>';
       }
       if (calibrateMode) {
         waitingForResult(callback);
       }
     }
-  }, 100);
+  }, 10);
 }
 
 function currentToolIsAroundTheSameSpot() {

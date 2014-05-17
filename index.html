@@ -12,29 +12,29 @@
       <div id="main">
         <div class="row">
           <div class="col-md-12">
-            <button class="btn btn-default" id="btn-start">Start</button>
-            <button class="btn btn-default" id="btn-calibrate">Calibrate</button>
+            <!-- <button class="btn btn-default" id="btn-start">Start</button> -->
+            <button class="btn btn-primary" id="btn-calibrate">Start Calibrate</button>
           </div>
         </div>
 
         <hr/>
 
         <div id="message">&nbsp;</div>
+        <div class="progress" id="message-progress">
+          &nbsp;
+        </div>
 
         <canvas id="musical-surface" width="800px" height="400px">
         </canvas>
 
         <hr/>
 
-        <div>
+        <div id="calibration-result">
           <div class="col-md-12">
-            <h3>Frame data:</h3>
-            <div id="frameData"></div>
-            <div class="clearfix"></div>
+            <h3>Calibration Result</h3>
 
-            <h3>Finger and tool data:</h3>
-            <div id="pointableData"></div>
-            <div class="clearfix"></div>
+            <div id="surface-size">
+            </div>
           </div>
         </div>
       </div>

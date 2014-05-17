@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Leap Motion | Javascript | Chopstick Drum</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Leap Motion | Javascript | Chopstick Measurement</h1>
+      <div id="main">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-default" id="btn-start">Start</button>
+            <button class="btn btn-default" id="btn-calibrate">Calibrate</button>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div id="message">&nbsp;</div>
+
+        <canvas id="musical-surface" width="800px" height="400px">
+        </canvas>
+
+        <hr/>
+
+        <div>
+          <div class="col-md-12">
+            <h3>Frame data:</h3>
+            <div id="frameData"></div>
+            <div class="clearfix"></div>
+
+            <h3>Finger and tool data:</h3>
+            <div id="pointableData"></div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://js.leapmotion.com/leap-0.6.0-beta1.js"></script>
+    <script src="scripts/tools.js"></script>
+    <script src="scripts/musical-surface.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/calibrate.js"></script>
+  </body>
+</html>

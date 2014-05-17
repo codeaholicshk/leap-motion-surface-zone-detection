@@ -4,7 +4,7 @@ Surface Zone Measurement
 Description
 ------
 
-When we develop a touch surface with Leap Motion, we need to map the effective physical surface zone to the internal leap motion positioning system.
+When we develop a touch surface interaction program with Leap Motion, we need to map the effective physical surface zone to the internal leap motion positioning system.
 
 This script is getting the rectangular physical area corner coordinates: top left, top right, bottom right and bottom left.
 
